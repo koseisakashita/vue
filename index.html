@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue App</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<div id="app" class="container">
+		<h1 v-on:click="countUp(5500, 500)">
+			<button @click="purge">Purge</button>
+			My todos
+			{{ count }}
+			<span class="info">{{ remaining.length }}/{{todos.length}}</span>
+		</h1>
+		<ul v-if="todos.length">
+			<li v-for="(todo, index) in todos">
+				<input type="checkbox" v-model="todo.isDone">
+				<span v-bind:class="{done: todo.isDone}">{{ todo.title }}</span>
+				<span @click="deleteItem(index)" class="delete">[×]</span>
+			</li>
+		</ul>
+		<ul v-else>
+			<li>データがありません</li>
+		</ul>
+		<form @submit="addItem">
+			<input type="text" v-model="newItem">
+			<input type="submit" value="add">
+		</form>
+		<p>Like Total {{ total }}</p>
+		<like-component message="Like" v-on:increment="incrementTotal"></like-component>
+		<like-component message="Awesome" v-on:increment="incrementTotal"></like-component>
+		<like-component message="great" v-on:increment="incrementTotal"></like-component>
+		<like-component v-on:increment="incrementTotal"></like-component>
+	</div>
+	<script>
+	// var price = 0;
+	// $('#price_up').click(function(){
+	// 	$({count: 0}).animate({count: 1000000}, {
+	// 		duration: 1000,
+	// 		easing: 'swing',
+	// 		progress: function() { 
+	// 		    $('#price span').text(Math.ceil(this.count)); 
+	// 		}
+	// 	});
+	// 	var begin = new Date() - 0;
+	// 	    console.log(begin)
+
+	// 	var myMain = document.getElementById("main");
+	// 	var myTime = 1000;
+	// 	var id = setInterval(function() {
+	// 	    var current = new Date() - begin;
+	// 	    if (current > myTime) {
+	// 	        clearInterval(id);
+	// 	        current = myTime;
+	// 	    }
+	// 	    console.log(current / myTime)
+	// 	    console.log(current / 100)
+	// 	    myMain.style.opacity = 1 * (current / myTime);
+	// 	    myMain.style.height = 600 - 300 * (current / myTime) + "px";
+	// 	    myMain.style.height = 300 + 50 * (current / myTime) + "px";
+	// 	    var count = 5  * (current / myTime);
+	// 	    $('#price span').text(Math.ceil(count)); 
+	// 	}, 10);
+	// });
+	</script>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
